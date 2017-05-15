@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车行情</title>
+    <style>
+        *{
+            font-family: 微软雅黑;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+        a{
+            text-decoration: none;
+            color: #000;;
+        }
+        .top{
+            height: 90px;
+            overflow: hidden;
+        }
+        .top img{
+            margin-left: -250px;
+        }
+        .search{
+            background: #f9f9f9;
+            position: absolute;
+            top: 30px;
+            right: 100px;
+            width: 300px;
+            height: 30px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            padding-left:5px;
+            color: #666666;
+        }
+        .nav{
+            height: 10px;
+        }
+        .menu{
+            height: 650px;
+            overflow: hidden;
+            position: relative;
+        }
+        #list{
+            width: 15360px;
+            position: absolute;
+            z-index: 1;
+            margin-left: 50%;
+            left: -2895px;
+        }
+        .img_cars img{
+            float: left;
+        }
+        #buttons{
+            position: absolute;
+            height: 10px;
+            width: 120px;
+            z-index: 2;
+            bottom: 25px;
+            margin-left: 50%;
+            opacity: 0.5;
+        }
+        #buttons span{
+            cursor: pointer;
+            float: left;
+            border: 1px solid #fff;
+            width: 12px;
+            height: 12px;
+            border-radius: 10px;
+            background: #333;
+            margin-left: 5px;
+        }
+        #buttons:hover{
+            opacity: 0.9;
+        }
+        #buttons .on{
+            background: orangered;
+        }
+        .arrow{
+            cursor: pointer;
+            display: none;
+            line-height: 59px;
+            text-align: center;
+            font-size: 66px;
+            font-weight: bold;
+            width: 60px;
+            height: 70px;
+            position: absolute;
+            z-index: 2;
+            top: 300px;
+            background-color: rgba(0,0,0,0.3);
+            color: #fff;
+        }
+        .arrow:hover{
+            background-color: rgba(0,0,0,0.7);
+        }
+        .menu:hover .arrow{
+            display:block;
+        }
+        #prev{
+            left: 20px;
+        }
+        #next{
+            right: 20px;
+        }
+        .div1{
+            height:50px;
+            overflow: hidden;
+            background :#111;
+            color: #fff;
+        }
+        .div1 ul{
+            list-style: none;
+            width: 1200px;
+            margin: 0 auto;
+        }
+        .div1 ul li{
+            float: left;
+            line-height: 50px;
+            margin-left: 65px;
+            cursor: pointer;
+            font-size: 19px;
+        }
+        .div1 ul a{
+            color: #fff;
+        }
+        .div1 .banner{
+            margin-left: 0;
+            background: #555;
+            width: 300px;
+            text-align: center;
+        }
+        .div2{
+            width: 1200px;
+            height: 585px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 3;
+        }
+        .brand{
+            background-color: rgba(16,16,16,0.6);
+
+        }
+        .div3{
+            width: 300px;
+            height: 585px;
+        }
+        .div3 ul{
+            list-style: none;
+        }
+        .div3 > ul > li{
+            color: #fff;
+            padding-left: 10px;
+            line-height: 39px;
+        }
+        .left a{
+            padding: 3px 8px;
+            color: #eee;
+        }
+        .left a:hover{
+            background: rgba(255,255,255,0.2);
+        }
+        .left ul{
+            list-style: none;
+            font-size: 13px;
+        }
+        .left ul li{
+            margin: -2px;
+            display: inline;
+            white-space: nowrap;
+        }
+        .right{
+            width: 870px;
+            height: 477px;
+            background: rgba(239,239,239,0.8);
+            position: absolute;
+            top: 0;
+            left: 300px;
+            padding:15px;
+            color: #000;
+            display: none;
+        }
+        .right:first-child{
+            display: block;
+        }
+        .ppbs{
+            width: 65px;
+            height: 65px;
+            border: 1px solid #ebebeb;
+            margin: 15px 20px auto 10px ;
+            display: block;
+            overflow: hidden;
+            float: left;
+        }
+        .cont_div {
+            width: 770px;
+            height: auto;
+            margin-top: 5px;
+            float: left;
+        }
+        .cont_div ul li{
+            float: left;
+            height: 65px;
+            margin-top: 20px;
+            margin-right: 28px;
+            margin-bottom: 10px;
+            width: 150px;
+            font-size: 14px;
+            line-height: 150%;
+        }
+        .cont_div ul li a{
+            color: blue;
+            font-size: 18px;
+        }
+        .cont_div ul li p{
+            color:#555;
+        }
+        hr{
+            clear: both;
+        }
+        .bottom{
+            background: #222;
+            height: 100px;
+            width: 100%;
+            position: static;
+            bottom: 0;
+            text-align: center;
+            color: #fff;
+            padding-top: 30px;
+        }
+        .bottom a{
+            color: #fff;
+        }
+        .bottom ul{
+            margin-bottom: 20px;
+        }
+        .bottom ul li{
+            display: inline;
+        }
+        .bottom p,.bottom p a{
+            font-size: 12px;
+        }
+        .bottom p a:hover{
+            color: #d9534f;
+            text-decoration: underline;
+        }
+    </style>
+    <script src="scripts/jquery-3.2.0.js"></script>
+</head>
+<body>
+    <div class="top">
+        <img src="images/p.jpg">
+        <input class="search" type="text" placeholder="车型搜索（品牌、车型名称、价格）"/>
+    </div>
+    <div class="nav"></div>
+        <div class="div1">
+            <ul>
+                <li class="banner"><a href="车行情.html">全部车辆分类</a></li>
+                <li><a href="new%20cars.html" target="_blank">新车</a></li>
+                <li><a href="technology.html" target="_blank">科技</a></li>
+                <li><a href="news.html" target="_blank">新闻中心</a></li>
+                <li><a href="information.html" target="_blank">车展信息</a></li>
+                <li><a href="test.html" target="_blank">试驾</a></li>
+            </ul>
+        </div>
+        <div class="menu">
+            <div id="list" class="img_cars">
+                <img src="images/index/car6.jpg" />
+                <img src="images/index/car1.jpg" />
+                <img src="images/index/car2futeGT.jpg" />
+                <img src="images/index/car3.jpg" />
+                <img src="images/index/car4.jpg" />
+                <img src="images/index/car5.jpg" />
+                <img src="images/index/car6.jpg" />
+                <img src="images/index/car1.jpg" />
+            </div>
+            <div id="buttons">
+                <span index="1" class="on"></span>
+                <span index="2"></span>
+                <span index="3"></span>
+                <span index="4"></span>
+                <span index="5"></span>
+                <span index="6"></span>
+            </div>
+            <a class="arrow" id="prev">&lt;</a>
+            <a class="arrow" id="next">&gt;</a>
+            <div class="div2">
+                <div class="div3">
+                    <ul>
+                        <li class="brand">
+                            <div class="left">
+                                <h3>德系品牌</h3>
+                                <ul>
+                                    <li><a href="#">上海大众</a></li>
+                                    <li><a href="#">奥迪</a></li>
+                                    <li><a href="#">宝马</a></li>
+                                    <li><a href="#">斯柯达</a></li>
+                                    <li><a href="#">北京奔驰</a></li>
+                                    <li><a href="#">一汽大众</a></li>
+                                    <li><a href="#">进口大众</a></li>
+                                    <li><a href="#">保时捷</a></li>
+                                    <li><a href="#">MINI</a></li>
+                                </ul>
+                            </div>
+                            <div class="right">
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/template/default/images/images_s/ppys_bs.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >上海大众</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">朗逸</a><br>
+                                            <p>指导价：<font style="color:red;">10.99-16.59万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>小型车</p>
+                                            <a class="imgicon" href="#">POLO</a><br>
+                                            <p>指导价：<font style="color:red;">8.59-15.89万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">途观</a><br>
+                                            <p>指导价：<font style="color:red;">19.98-31.58万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">帕萨特</a><br>
+                                            <p>指导价：<font style="color:red;">18.38-32.28万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">桑塔纳·浩纳</a><br>
+                                            <p>指导价：<font style="color:red;">9.69-13.89万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">朗行</a><br>
+                                            <p>指导价：<font style="color:red;">11.29-16.39万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">凌渡</a><br>
+                                            <p>指导价：<font style="color:red;">14.59-21.39万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">新桑塔纳</a><br>
+                                            <p>指导价：<font style="color:red;">8.49-13.68万</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <hr/>
+
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/userfiles/image/20150826/2611522530384a01074206.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >奥迪</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">奥迪A4L</a><br>
+                                            <p>指导价：<font style="color:red;">27.28-57.81万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中大型车</p>
+                                            <a class="imgicon" href="#">奥迪A6L</a><br>
+                                            <p>指导价：<font style="color:red;">27.28-74.26万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">奥迪Q5</a><br>
+                                            <p>指导价：<font style="color:red;">35.85-57.17万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">奥迪A3</a><br>
+                                            <p>指导价：<font style="color:red;">18.49-29.67万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">奥迪Q3</a><br>
+                                            <p>指导价：<font style="color:red;">24.98-42.88万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">奥迪Q7</a><br>
+                                            <p>指导价：<font style="color:red;">82.8-123.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>大型车</p>
+                                            <a class="imgicon" href="#">奥迪A8</a><br>
+                                            <p>指导价：<font style="color:red;">87.98-271.5万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中大型车</p>
+                                            <a class="imgicon" href="#">奥迪A7</a><br>
+                                            <p>指导价：<font style="color:red;">62.80-95.80万</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="brand">
+                            <div class="left">
+                                <h3>美系品牌</h3>
+                                <ul>
+                                    <li><a href="#">上汽通用别克</a></li>
+                                    <li><a href="#">雪佛兰</a></li>
+                                    <li><a href="#">长安福特</a></li>
+                                    <li><a href="#">福特(进口)</a></li>
+                                    <li><a href="#">Jeep</a></li>
+                                    <li><a href="#">别克(进口)</a></li>
+                                    <li><a href="#">道奇</a></li>
+                                    <li><a href="#">凯迪拉克</a></li>
+                                    <li><a href="#">克莱斯勒</a></li>
+                                </ul>
+                            </div>
+                            <div class="right">
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/userfiles/image/20150826/261644243a97f493548394.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >上海通用别克</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">昂科威</a><br>
+                                            <p>指导价：<font style="color:red;">21.99-34.99万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">英朗</a><br>
+                                            <p>指导价：<font style="color:red;">10.99-18.15万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">君威</a><br>
+                                            <p>指导价：<font style="color:red;">17.89-27.99万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">威朗</a><br>
+                                            <p>指导价：<font style="color:red;">13.59-19.99万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">君越</a><br>
+                                            <p>指导价：<font style="color:red;">23.59-28.99万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">凯越</a><br>
+                                            <p>指导价：<font style="color:red;">8.69-10.59万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">昂科拉</a><br>
+                                            <p>指导价：<font style="color:red;">13.99-18.69万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>MPV</p>
+                                            <a class="imgicon" href="#">别克GL8</a><br>
+                                            <p>指导价：<font style="color:red;">20.90-39.99万</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <hr/>
+
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/userfiles/image/20150826/261645445c37ea90517604.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >雪佛兰</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">科鲁兹</a><br>
+                                            <p>指导价：<font style="color:red;">8.99-16.99万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">迈锐宝</a><br>
+                                            <p>指导价：<font style="color:red;">16.99-23.69万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>小型车</p>
+                                            <a class="imgicon" href="#">赛欧</a><br>
+                                            <p>指导价：<font style="color:red;">5.68-7.99万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">科帕奇</a><br>
+                                            <p>指导价：<font style="color:red;">17.99-20.99万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">TRAX创酷</a><br>
+                                            <p>指导价：<font style="color:red;">10.99-16.39万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">景程</a><br>
+                                            <p>指导价：<font style="color:red;">10.89-19.69万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>跑车</p>
+                                            <a class="imgicon" href="#">科迈罗Camaro</a><br>
+                                            <p>指导价：<font style="color:red;">45.58-49.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>小型车</p>
+                                            <a class="imgicon" href="#">爱唯欧</a><br>
+                                            <p>指导价：<font style="color:red;">7.39-10.99万</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="brand">
+                            <div class="left">
+                                <h3>中国品牌</h3>
+                                <ul>
+                                    <li><a href="#">比亚迪</a></li>
+                                    <li><a href="#">吉利</a></li>
+                                    <li><a href="#">长安</a></li>
+                                    <li><a href="#">中华</a></li>
+                                    <li><a href="#">奇瑞</a></li>
+                                    <li><a href="#">长城</a></li>
+                                    <li><a href="#">荣威</a></li>
+                                    <li><a href="#">启辰</a></li>
+                                    <li><a href="#">绅宝</a></li>
+                                </ul>
+                            </div>
+                            <div class="right">
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/userfiles/image/20150827/270923510b010707e20733.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >比亚迪</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">唐</a><br>
+                                            <p>指导价：<font style="color:red;">27.98-51.88万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">比亚迪S7</a><br>
+                                            <p>指导价：<font style="color:red;">10.69-13.99万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">比亚迪S6</a><br>
+                                            <p>指导价：<font style="color:red;">7.99-12.39万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">比亚迪F3</a><br>
+                                            <p>指导价：<font style="color:red;">4.39-7.29万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">速锐</a><br>
+                                            <p>指导价：<font style="color:red;">6.99-9.59万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">秦</a><br>
+                                            <p>指导价：<font style="color:red;">20.98-21.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>微型车</p>
+                                            <a class="imgicon" href="#">比亚迪F0</a><br>
+                                            <p>指导价：<font style="color:red;">3.79-4.79万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>MPV</p>
+                                            <a class="imgicon" href="#">比亚迪e6</a><br>
+                                            <p>指导价：<font style="color:red;">30.98-36.98万</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <hr/>
+
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/userfiles/image/20150827/27100138c7b09eff573768.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >吉利</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">博瑞</a><br>
+                                            <p>指导价：<font style="color:red;">11.98-22.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">帝豪</a><br>
+                                            <p>指导价：<font style="color:red;">6.98-10.08万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">远景</a><br>
+                                            <p>指导价：<font style="color:red;">5.39-6.69万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">EC8</a><br>
+                                            <p>指导价：<font style="color:red;">8.89-11.89万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">豪情SUV</a><br>
+                                            <p>指导价：<font style="color:red;">12.29-15.29万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>微型车</p>
+                                            <a class="imgicon" href="#">熊猫</a><br>
+                                            <p>指导价：<font style="color:red;">3.69-4.99万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>小型车</p>
+                                            <a class="imgicon" href="#">金刚</a><br>
+                                            <p>指导价：<font style="color:red;">4.59-6.29万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">海景</a><br>
+                                            <p>指导价：<font style="color:red;">5.19-5.69万</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="brand">
+                            <div class="left">
+                                <h3>欧系品牌</h3>
+                                <ul>
+                                    <li><a href="#">路虎</a></li>
+                                    <li><a href="#">标致</a></li>
+                                    <li><a href="#">沃尔沃</a></li>
+                                    <li><a href="#">雪铁龙</a></li>
+                                    <li><a href="#">捷豹</a></li>
+                                    <li><a href="#">宾利</a></li>
+                                    <li><a href="#">法拉利</a></li>
+                                    <li><a href="#">雷诺</a></li>
+                                    <li><a href="#">兰博基尼</a></li>
+                                </ul>
+                            </div>
+                            <div class="right">
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/userfiles/image/20150827/27133913097f424ff30014.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >路虎</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">揽胜运动版</a><br>
+                                            <p>指导价：<font style="color:red;">98.8-229.80万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">揽胜极光</a><br>
+                                            <p>指导价：<font style="color:red;">39.80-55.20万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">揽胜</a><br>
+                                            <p>指导价：<font style="color:red;">149.8-329.80万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">发现</a><br>
+                                            <p>指导价：<font style="color:red;">82.80-105.80万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">发现神行</a><br>
+                                            <p>指导价：<font style="color:red;">55.80-61.80万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">揽胜极光(进口)</a><br>
+                                            <p>指导价：<font style="color:red;">57.80-66.60万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">神行者2</a><br>
+                                            <p>指导价：<font style="color:red;">49.80-60.80万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">卫士</a><br>
+                                            <p>指导价：<font style="color:red;">暂无报价</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <hr/>
+
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/userfiles/image/20150827/27133757b1e67f98a00636.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >标致</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">标致408</a><br>
+                                            <p>指导价：<font style="color:red;">12.97-18.97万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">标致3008</a><br>
+                                            <p>指导价：<font style="color:red;">15.97-22.32万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">标致508</a><br>
+                                            <p>指导价：<font style="color:red;">17.37-26.97万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">标致2008</a><br>
+                                            <p>指导价：<font style="color:red;">9.97-16.37万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">标致308S</a><br>
+                                            <p>指导价：<font style="color:red;">11.27-17.97万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">标致308</a><br>
+                                            <p>指导价：<font style="color:red;">10.59-13.49万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">标致301</a><br>
+                                            <p>指导价：<font style="color:red;">8.47-11.67万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">标致4008</a><br>
+                                            <p>指导价：<font style="color:red;">19.98-27.98万</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="brand">
+                            <div class="left">
+                                <h3>日韩品牌</h3>
+                                <ul>
+                                    <li><a href="#">本田</a></li>
+                                    <li><a href="#">丰田</a></li>
+                                    <li><a href="#">现代</a></li>
+                                    <li><a href="#">起亚</a></li>
+                                    <li><a href="#">日产</a></li>
+                                    <li><a href="#">马自达</a></li>
+                                    <li><a href="#">三菱</a></li>
+                                    <li><a href="#">雷克萨斯</a></li>
+                                    <li><a href="#">英菲尼迪</a></li>
+                                </ul>
+                            </div>
+                            <div class="right">
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/userfiles/image/20150827/27143030566467b23a6065.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >本田</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">本田CR-V</a><br>
+                                            <p>指导价：<font style="color:red;">17.98-26.28万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">雅阁</a><br>
+                                            <p>指导价：<font style="color:red;">17.98-29.88万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">缤智</a><br>
+                                            <p>指导价：<font style="color:red;">12.88-18.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">本田XR-V</a><br>
+                                            <p>指导价：<font style="color:red;">12.78-16.28万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>小型车</p>
+                                            <a class="imgicon" href="#">飞度</a><br>
+                                            <p>指导价：<font style="color:red;">7.38-11.28万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>MPV</p>
+                                            <a class="imgicon" href="#">奥德赛</a><br>
+                                            <p>指导价：<font style="color:red;">22.98-29.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">思铂睿</a><br>
+                                            <p>指导价：<font style="color:red;">17.98-26.78万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">锋范</a><br>
+                                            <p>指导价：<font style="color:red;">8.28万</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <hr/>
+
+                                <div class="ppbs"><a href="#"><img src="http://www.buycar.cn/userfiles/image/20150827/2714312499a50f83399501.jpg" width="65" height="65" /></a></div>
+                                <div class="cont_div">
+                                    <h3><a href="#" >丰田</a></h3>
+                                    <ul>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">汉兰达</a><br>
+                                            <p>指导价：<font style="color:red;">23.98-42.28万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">卡罗拉</a><br>
+                                            <p>指导价：<font style="color:red;">10.78-15.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中大型车</p>
+                                            <a class="imgicon" href="#">皇冠</a><br>
+                                            <p>指导价：<font style="color:red;">26.48-38.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>中型车</p>
+                                            <a class="imgicon" href="#">凯美瑞</a><br>
+                                            <p>指导价：<font style="color:red;">18.48-32.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">普拉多</a><br>
+                                            <p>指导价：<font style="color:red;">36.98-67.60万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>紧凑型车</p>
+                                            <a class="imgicon" href="#">雷凌</a><br>
+                                            <p>指导价：<font style="color:red;">10.78-15.98万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>SUV</p>
+                                            <a class="imgicon" href="#">一汽丰田RAV4</a><br>
+                                            <p>指导价：<font style="color:red;">18.38-27.28万</font></p>
+                                        </li>
+                                        <li>
+                                            <p>小型车</p>
+                                            <a class="imgicon" href="#">YARiS L 致炫</a><br>
+                                            <p>指导价：<font style="color:red;">6.98-10.88万</font></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <div class="bottom">
+        <ul>
+            <li><a href="#">关于我们 </a></li>|
+            <li><a href="#">联系我们 </a></li>|
+            <li><a href="#">征稿启示 </a></li>|
+            <li><a href="#">招贤纳士 </a></li>|
+            <li><a href="map.html" target="_blank">网站地图 </a></li>|
+            <li><a href="#">原创</a></li>
+        </ul>
+        <p>Copyright © 2006-2016 <a href="车行情.html">buycar.cn</a> All rights reserved.</p>
+    </div>
+</body>
+<script>
+    var index = 1;
+    $(function(){
+        $("#next").click(function(){
+            var left = parseInt($("#list").css("left")) - 1920;
+            $("#list").css("left",left + "px");
+            if(left < -12495){
+                $("#list").css("left",-2895 + "px");
+            }
+            index += 1;
+            $("#buttons span").eq(index-1).addClass("on");
+            $("#buttons span").not($("#buttons span").eq(index-1)).removeClass("on");
+            if(index>=6){
+                index=0;
+            }
+        })
+        $("#prev").click(function(){
+            var left = parseInt($("#list").css("left")) + 1920;
+            $("#list").css("left",left + "px");
+            if(left > -975){
+                $("#list").css("left",-10575 + "px");
+            }
+            index -= 1;
+            $("#buttons span").eq(index-1).addClass("on");
+            $("#buttons span").not($("#buttons span").eq(index-1)).removeClass("on");
+            if(index<=0){
+                index=6;
+            }
+        })
+        $("#buttons span").click(function(){
+            var $index = $(this).attr("index");
+            var $offset = parseInt(index-$index) * 1920;
+            var left = parseInt($("#list").css("left")) + $offset;
+            $("#list").css("left",left + "px");
+            index = $index++;
+            $("#buttons span").eq(index-1).addClass("on");
+            $("#buttons span").not($("#buttons span").eq(index-1)).removeClass("on");
+        })
+        function play(){
+            var timer = setInterval(function(){
+                $("#next").click();
+            },5000);
+        }
+        play();
+        $(".search").focus(function(){
+            $(this).css({"border":"2px solid blue"});
+            if($(this).attr("placeholder") == "车型搜索（品牌、车型名称、价格）"){
+                $(this).attr("placeholder"," ");
+            }
+        })
+        $(".search").blur(function(){
+            $(this).css({"border":"1px solid #ccc"});
+            if($(this).attr("placeholder") == " "){
+                $(this).attr("placeholder","车型搜索（品牌、车型名称、价格）");
+            }
+        })
+    })
+
+    $(".brand").mouseenter(function(){
+        $(this).css({"background":"#b61d1d"});
+        $(".brand").not($(this)).css({"background-color":"rgba(16,16,16,0.6)","color":"#fff"})
+        $(this).find(".right").show();
+        $(".right").not($(this).find(".right")).hide();
+    })
+    $(".brand").mouseleave(function(){
+        $(this).find(".right").hide();
+        $(this).css({"background-color":"rgba(16,16,16,0.6)","color":"#fff"});
+    })
+
+</script>
+</html>

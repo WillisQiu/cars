@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新闻中心</title>
+    <script src="scripts/jquery-3.2.0.js"></script>
+    <style>
+        *{
+            font-family: 微软雅黑;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            overflow-x: hidden;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+        .top{
+            height: 90px;
+            overflow: hidden;
+        }
+        .top img{
+            margin-left: -250px;
+        }
+        .search{
+            background: #f9f9f9;
+            position: absolute;
+            top: 30px;
+            right: 100px;
+            width: 300px;
+            height: 30px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            padding-left:5px;
+            color: #666666;
+        }
+        .nav{
+            height: 10px;
+        }
+        .div1{
+            height:50px;
+            overflow: hidden;
+            background :#111;
+            color: #fff;
+        }
+        .div1 ul{
+            list-style: none;
+            width: 1200px;
+            margin: 0 auto;
+        }
+        .div1 ul li{
+            float: left;
+            line-height: 50px;
+            margin-left: 65px;
+            cursor: pointer;
+            font-size: 19px;
+        }
+        .div1 ul a{
+            color: #fff;
+            font-size: 19px;
+        }
+        .div1 ul .first{
+            margin-left: 0;
+        }
+        .div1 .banner{
+            /*margin-left: 0;*/
+            background: #555;
+            width: 300px;
+            text-align: center;
+        }
+        .contain{
+            width: 1100px;
+            height: 1650px;
+            margin: 15px auto;
+        }
+        .l-contain{
+            width: 757px;
+            height: 1600px;
+            float: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .r-contain{
+            width: 320px;
+            height: 1600px;
+            float: right;
+            position: relative;
+            overflow: hidden;
+        }
+        #list{
+            width: 3785px;
+            position: absolute;
+        }
+        .img_cars img{
+            z-index: 1;
+            float: left;
+            width:757px;
+            height:427px;
+        }
+        #buttons{
+            position: absolute;
+            height: 14px;
+            width: 120px;
+            z-index: 2;
+            opacity: 0.2;
+            top: 390px;
+            left: 350px;
+            overflow: hidden;
+        }
+        #buttons span{
+            cursor: pointer;
+            float: left;
+            border: 1px solid #fff;
+            width: 12px;
+            height: 12px;
+            border-radius: 10px;
+            background: #333;
+            margin-left: 5px;
+        }
+        #buttons:hover{
+            opacity: 0.7;
+        }
+        #buttons .on{
+            background: orangered;
+        }
+        #prev{
+            left: 20px;
+        }
+        #next{
+            right: 20px;
+        }
+        .arrow{
+            cursor: pointer;
+            display: none;
+            line-height: 59px;
+            text-align: center;
+            font-size: 66px;
+            font-weight: bold;
+            width: 60px;
+            height: 70px;
+            position: absolute;
+            z-index: 2;
+            top: 300px;
+            background-color: rgba(0,0,0,0.3);
+            color: #fff;
+        }
+        .arrow:hover{
+            background-color: rgba(0,0,0,0.7);
+        }
+        .menu:hover .arrow{
+            display:block;
+        }
+        .small{
+            margin-top: 460px;
+        }
+        .nc{
+            padding: 20px 0;
+        }
+        .ncimg{
+            float: left;
+            margin-bottom: 20px;
+
+            overflow: hidden;
+        }
+        .ncimg img{
+            width: 240px;
+            height: 159px;
+        }
+        .nctext{
+            float: left;
+            width: 470px;
+            margin: 5px 0 0 20px;
+            color: #aaa;
+        }
+        .nctext p, .time{
+            font-size: 12px;
+        }
+        .hr{
+            clear: both;
+        }
+        .calendar{
+            width: 320px;
+            height: 360px;
+        }
+        .calendar-title{
+            font-size: 20px;
+        }
+        .month ul{
+            text-align: right;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .month ul li{
+            list-style: none;
+            padding: 10px;
+            display: inline;
+            cursor: pointer;
+        }
+        .on{
+            color: #00CCFF;
+            font-size: 18px;
+        }
+        .calendar{
+            overflow: hidden;
+        }
+        .pic{
+            float: left;
+            width: 155px;
+            height: 180px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .pic img{
+            width: 155px;
+            height: 115px;
+        }
+        .pic p{
+            font-size: 14px;
+            padding: 10px 0;
+        }
+        .pic p:hover{
+            color: #ff0000;
+            text-decoration: underline;
+        }
+        .hot{
+            padding: 10px;
+            margin-top: 40px;
+            border: 1px solid #AAAAAA;;
+        }
+        .hot h2{
+            font-size: 20px;
+        }
+        .hot ul{
+            margin-top: 20px;
+            padding-left: 30px;
+            list-style: none;
+            background: url(images/calendar/rank.png) no-repeat 0 4px;
+            clear: both;
+            display: block;
+        }
+        .hot ul li{
+            height: 26px;
+            line-height: 26px;
+            overflow: hidden;
+            padding-top: 4px;
+            padding-bottom: 3px;
+        }
+        .hot ul li a{
+            color: #777;
+            font-size: 14px;
+        }
+        .hot ul li a:hover{
+            color: #555;
+            cursor: pointer;
+            background: #eee;
+            display: block;
+        }
+        .bottom{
+            background: #222;
+            height: 100px;
+            width: 100%;
+            position: static;
+            bottom: 0;
+            text-align: center;
+            color: #fff;
+            padding-top: 30px;
+        }
+        .bottom a{
+            color: #fff;
+        }
+        .bottom ul{
+            margin-bottom: 20px;
+        }
+        .bottom ul li{
+            display: inline;
+        }
+        .bottom p,.bottom p a{
+            font-size: 12px;
+        }
+        .bottom p a:hover{
+            color: #d9534f;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="top">
+    <img src="images/p.jpg">
+    <input class="search" type="text" placeholder="车型搜索（品牌、车型名称、价格）"/>
+</div>
+<div class="nav"></div>
+<div class="div1">
+    <ul>
+        <li class="first"><a href="车行情.html" target="_blank">首页</a></li>
+        <li><a href="new%20cars.html" target="_blank">新车</a></li>
+        <li><a href="technology.html" target="_blank">科技</a></li>
+        <li class="banner"><a href="news.html">新闻中心</a></li>
+        <li><a href="information.html" target="_blank">车展信息</a></li>
+        <li><a href="test.html" target="_blank">试驾</a></li>
+    </ul>
+</div>
+<div class="contain">
+    <div class="l-contain">
+        <div id="list" class="img_cars">
+            <img src="images/news/pic3.jpg" />
+            <img src="images/news/pic1.jpg" />
+            <img src="images/news/pic2.jpg" />
+            <img src="images/news/pic3.jpg" />
+            <img src="images/news/pic1.jpg" />
+        </div>
+        <div id="buttons">
+            <span index="1" class="on"></span>
+            <span index="2"></span>
+            <span index="3"></span>
+        </div>
+        <a class="arrow" id="prev">&lt;</a>
+        <a class="arrow" id="next">&gt;</a>
+        <div class="small">
+            <hr>
+            <div class="nc">
+                <div class="ncimg">
+                    <a href="http://www.buycar.cn/kanche/20170329/908909_1.html" target="_blank"><img src="images/news/pic4.jpg"/></a>
+                </div>
+                <div class="nctext">
+                    <a href="http://www.buycar.cn/kanche/20170329/908909_1.html" target="_blank"><h3>59项全系标配 雪佛兰新探界者配置公布</h3></a>
+                    <br>
+                    <p>2017年3月28日，上汽通用汽车雪佛兰实力中级SUV探界者Equinox的主要配置正式公布，59项全系标配领先同级，覆盖车身外观、智能科技、便利舒适、安全保障等方方面面，进一步展现高人一档强劲实力，为勇于探索和挑 ...</p>
+                    <br>
+                    <span class="time">2017-04-19</span>
+                </div>
+            </div>
+            <hr class="hr">
+            <div class="nc">
+                <div class="ncimg">
+                    <a href="http://www.buycar.cn/kanche/20170329/908910_1.html" target="_blank"><img src="images/news/pic5.jpg"/></a>
+                </div>
+                <div class="nctext">
+                    <a href="http://www.buycar.cn/kanche/20170329/908910_1.html" target="_blank"><h3>产品竞争力提升 广汽本田冠道240 TURBO详解</h3></a>
+                    <br>
+                    <p>纵览汽车市场，最火热的当属SUV。而在中大型SUV市场中，冠道的出现无疑给对手带来强大的冲击。人们对冠道370TURBO车型关注度十分高涨，其销量数据极为傲人，一款2016年10月29日才上市的全新车型，12月销量达到了 ...
+                    </p>
+                    <br>
+                    <span class="time">2017-04-19</span>
+                </div>
+            </div>
+            <hr class="hr">
+            <div class="nc">
+                <div class="ncimg">
+                    <a href="http://www.buycar.cn/kanche/20170405/909266_1.html" target="_blank"><img src="images/news/pic6.jpg"/></a>
+                </div>
+                <div class="nctext">
+                    <a href="http://www.buycar.cn/kanche/20170405/909266_1.html" target="_blank"><h3>除了听音乐和导航 车联网还能帮忙生孩子？</h3></a>
+                    <br>
+                    <p>你心目中的汽车是什么？仅仅是一个把你从A地送到B地的交通工具吗？不，远不止如此，或许你还来不及想象，但是有人已经给出了你答案，又或许让你担忧。
+                    </p>
+                    <br>
+                    <span class="time">2017-04-19</span>
+                </div>
+            </div>
+            <hr class="hr">
+            <div class="nc">
+                <div class="ncimg">
+                    <a href="http://www.buycar.cn/kanche/20170407/909380_1.html" target="_blank"><img src="images/news/pic7.jpg"/></a>
+                </div>
+                <div class="nctext">
+                    <a href="http://www.buycar.cn/kanche/20170407/909380_1.html" target="_blank"><h3>上汽通用：不可能让互联网公司直接读取车辆数据</h3></a>
+                    <br>
+                    <p>上汽通用两天前发布了“2025车联战略”，众所周知这并不是他们第一次围绕车联网技术来描述企业的未来战略，早在从2009年引入OnStar开始，上汽通用就已经形成定期向媒体展示车联网技术及商业成果的习惯，包括这次 ...
+                    </p>
+                    <br>
+                    <span class="time">2017-04-19</span>
+                </div>
+            </div>
+            <hr class="hr">
+            <div class="nc">
+                <div class="ncimg">
+                    <a href="http://www.buycar.cn/kanche/20170414/911981_1.html" target="_blank"><img src="images/news/pic8.jpg"/></a>
+                </div>
+                <div class="nctext">
+                    <a href="http://www.buycar.cn/kanche/20170414/911981_1.html" target="_blank"><h3>选它们 可以让你低调的炫富</h3></a>
+                    <br>
+                    <p>买车这件事可是除了买房之外的第二件大事，所以买车要从多方面考虑，外观内饰性价比固然重要，但是适合你的才是最重要的，有些天生爱炫耀，买个华晨宝马还要去汽配城把华晨俩字扣掉，买个众泰RS9硬装保时捷。有 ...
+                    </p>
+                    <br>
+                    <span class="time">2017-04-19</span>
+                </div>
+            </div>
+            <hr class="hr">
+        </div>
+
+    </div>
+    <div class="r-contain">
+        <h2 class="calendar-title">新车日历</h2>
+        <div class="month">
+            <ul>
+                <li class="on" index="1">3月</li>
+                <li index="2">4月</li>
+                <li index="3">5月</li>
+            </ul>
+        </div>
+        <ul class="calendar">
+            <li>
+                <div class="pic">
+                    <a href="#"><img src="images/calendar/pic1.jpg"/></a>
+                    <a href="#"><p>大众全新C级车或将命名为“辉道” 12月份国内亮相</p></a>
+                </div>
+                <div class="pic" style="margin-right: 0;">
+                    <a href="#"><img src="images/calendar/pic2.jpg"/></a>
+                    <a href="#"><p>力帆7座SUV增搭1.8升发动机 于12月上市</p></a>
+                </div>
+                <div class="pic">
+                    <a href="#"><img src="images/calendar/pic3.jpg"/></a>
+                    <a href="#"><p>长安欧尚配置信息曝光 将于12月27日上市</p></a>
+                </div>
+                <div class="pic" style="margin-right: 0;">
+                    <a href="#"><img src="images/calendar/pic4.jpg"/></a>
+                    <a href="#"><p>【华晨宝马】之诺插电式混动SUV将12月发布 预售35万</p></a>
+                </div>
+            </li>
+            <li style="display: none;">
+                <div class="pic">
+                    <a href="#"><img src="images/calendar/pic5.jpg"/></a>
+                    <a href="#"><p>比速汽车 | 亲民MPV M3有望2017年初上市</p></a>
+                </div>
+                <div class="pic" style="margin-right: 0;">
+                    <a href="#"><img src="images/calendar/pic6.jpg"/></a>
+                    <a href="#"><p>广汽菲克Jeep | 霸气十足 2017款Jeep指南者或1月上市</p></a>
+                </div>
+                <div class="pic">
+                    <a href="#"><img src="images/calendar/pic7.jpg"/></a>
+                    <a href="#"><p>【宝骏】每年一“爆款” 宝骏510预计2017年1季度上市</p></a>
+                </div>
+                <div class="pic" style="margin-right: 0;">
+                    <a href="#"><img src="images/calendar/pic8.jpg"/></a>
+                    <a href="#"><p>讴歌 | 全新家族设计外观更高调 2017款MDX有望上海车展首发</p></a>
+                </div>
+            </li>
+            <li style="display: none;">
+                <div class="pic">
+                    <a href="#"><img src="images/calendar/pic9.jpg"/></a>
+                    <a href="#"><p>长安马自达 | 2017款昂克赛拉沿用海外设计 明年2月上市</p></a>
+                </div>
+                <div class="pic" style="margin-right: 0;">
+                    <a href="#"><img src="images/calendar/pic10.jpg"/></a>
+                    <a href="#"><p>一汽丰田 | 锋势或2017年2月上市 前像威驰后像致炫</p></a>
+                </div>
+                <div class="pic">
+                    <a href="#"><img src="images/calendar/pic11.jpg"/></a>
+                    <a href="#"><p>【西雅特】全新动力系统 新款LEON官图曝光 预计2017年上市</p></a>
+                </div>
+                <div class="pic" style="margin-right: 0;">
+                    <a href="#"><img src="images/calendar/pic12.jpg"/></a>
+                    <a href="#"><p>【雪佛兰】全新中型SUV Equinox首发 2017年初上市</p></a>
+                </div>
+            </li>
+        </ul>
+        <div class="hot">
+            <h2>热门排行</h2>
+            <ul>
+                <li><a>如何去创造能吹一辈子的旅行！就靠这台车啦</a></li>
+                <li><a>成功创业者的选择 那些带老板键的中级车</a></li>
+                <li><a>跨界才是主流 这几款车你选谁？</a></li>
+                <li><a>全新迈腾强势来袭 如何树立B级车新标杆？</a></li>
+                <li><a>稳重大气又舒适 哪款中级车最适合你</a></li>
+                <li><a>年内油价第二次下调 回归五元时代</a></li>
+                <li><a>忍不住了？ FCA将基于Ram皮卡推新SUV</a></li>
+                <li><a>暴躁奢华的绅士 试驾宝马750Li xDrive</a></li>
+                <li><a>名爵锐腾天山开出趣之独库公路（一）</a></li>
+                <li><a>下雨了 你的车够高么？盘点三款高涉水深度SUV</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="bottom">
+    <ul>
+        <li><a href="#">关于我们 </a></li>|
+        <li><a href="#">联系我们 </a></li>|
+        <li><a href="#">征稿启示 </a></li>|
+        <li><a href="#">招贤纳士 </a></li>|
+        <li><a href="map.html" target="_blank">网站地图 </a></li>|
+        <li><a href="#">原创</a></li>
+    </ul>
+    <p>Copyright © 2006-2016 <a href="车行情.html">buycar.cn</a> All rights reserved.</p>
+</div>
+</body>
+<script>
+    var index=1;
+    $(function(){
+        $("#buttons span").click(function(){
+            var $index = $(this).attr("index");
+            var $offset = parseInt(index-$index) * 757;
+            var left = parseInt($("#list").css("left")) + $offset;
+            $("#list").css("left",left + "px");
+            index = $index++;
+            $("#buttons span").eq(index-1).addClass("on");
+            $("#buttons span").not($("#buttons span").eq(index-1)).removeClass("on");
+        })
+        $("#next").click(function(){
+            var left = parseInt($("#list").css("left")) - 757;
+            $("#list").css("left",left + "px");
+            if(left < -2271){
+                $("#list").css("left",-757 + "px");
+            }
+            index += 1;
+            $("#buttons span").eq(index-1).addClass("on");
+            $("#buttons span").not($("#buttons span").eq(index-1)).removeClass("on");
+            if(index>=3){
+                index=0;
+            }
+        })
+        $("#prev").click(function(){
+            var left = parseInt($("#list").css("left")) + 757;
+            $("#list").css("left",left + "px");
+            if(left > 0){
+                $("#list").css("left",-1514 + "px");
+            }
+            index -= 1;
+            $("#buttons span").eq(index-1).addClass("on");
+            $("#buttons span").not($("#buttons span").eq(index-1)).removeClass("on");
+            if(index<=0){
+                index=3;
+            }
+        })
+        function play(){
+            var timer = setInterval(function(){
+                $("#next").click();
+            },5000);
+        }
+        play();
+        $(".search").focus(function(){
+            $(this).css({"border":"2px solid blue"});
+            if($(this).attr("placeholder") == "车型搜索（品牌、车型名称、价格）"){
+                $(this).attr("placeholder"," ");
+            }
+        })
+        $(".search").blur(function(){
+            $(this).css({"border":"1px solid #ccc"});
+            if($(this).attr("placeholder") == " "){
+                $(this).attr("placeholder","车型搜索（品牌、车型名称、价格）");
+            }
+        })
+        $(".month ul li").mouseenter(function(){
+            $(this).addClass("on");
+            $(".month ul li").not($(this)).removeClass("on");
+            $(".calendar li").eq($(this).attr("index")-1).show();
+            $(".calendar li").not($(".calendar li").eq($(this).attr("index")-1)).hide();
+        })
+    })
+</script>
+</html>
